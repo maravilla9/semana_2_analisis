@@ -1,10 +1,11 @@
+<!-- REEMPLAZA TODO TU HTML POR ESTE -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Detective del Contenido - Semana 2</title>
+<title>🕵️ Detective del Contenido</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -17,130 +18,153 @@
 }
 
 body{
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg,#07111f,#132238,#1f3c5b);
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#6a11cb,#2575fc);
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    color:white;
+    overflow-x:hidden;
 }
 
 .app{
     width:100%;
     max-width:500px;
     min-height:100vh;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
+    background:white;
     position:relative;
     overflow:hidden;
 }
 
-.topbar{
-    padding:20px;
-    background:rgba(0,0,0,0.25);
+/* HEADER */
+
+.header{
+    background:linear-gradient(135deg,#ff4e50,#f9d423);
+    padding:25px;
+    color:white;
+    text-align:center;
+    border-bottom-left-radius:30px;
+    border-bottom-right-radius:30px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 
-.title{
-    font-size:28px;
-    font-weight:bold;
-    margin-bottom:8px;
+.header h1{
+    font-size:30px;
 }
 
-.subtitle{
-    color:#d0d0d0;
-    font-size:14px;
+.header p{
+    margin-top:8px;
+    font-size:15px;
 }
 
-.stats{
+/* PROGRESS */
+
+.steps{
     display:flex;
-    justify-content:space-between;
+    justify-content:center;
+    gap:12px;
     margin-top:20px;
+}
+
+.step{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.4);
+    display:flex;
+    justify-content:center;
     align-items:center;
-}
-
-.lives{
-    font-size:24px;
-}
-
-.score{
-    background:#4CAF50;
-    padding:10px 16px;
-    border-radius:30px;
     font-weight:bold;
+    transition:0.3s;
 }
 
-.progress-container{
-    width:100%;
-    height:12px;
-    background:rgba(255,255,255,0.1);
-    border-radius:20px;
-    margin-top:20px;
-    overflow:hidden;
+.step.active{
+    background:white;
+    color:#ff4e50;
+    transform:scale(1.1);
 }
 
-.progress{
-    width:0%;
-    height:100%;
-    background:linear-gradient(to right,#00ff88,#00bfff);
-    transition:0.4s;
+.step.done{
+    background:#00e676;
+    color:white;
 }
+
+/* GAME */
 
 .game{
     padding:25px;
 }
 
-.level{
-    color:#00e5ff;
-    font-size:14px;
-    margin-bottom:12px;
+.top-info{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
 }
 
-.timer-box{
-    display:flex;
-    justify-content:center;
-    margin-bottom:20px;
+.lives{
+    font-size:28px;
+}
+
+.score{
+    background:#2575fc;
+    color:white;
+    padding:10px 16px;
+    border-radius:20px;
+    font-weight:bold;
 }
 
 .timer{
     width:80px;
     height:80px;
     border-radius:50%;
-    border:5px solid #00e5ff;
+    background:linear-gradient(135deg,#ff4e50,#f9d423);
+    color:white;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:28px;
+    font-size:30px;
     font-weight:bold;
-    animation:pulse 1s infinite;
+    margin:0 auto 20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
-@keyframes pulse{
-    0%{transform:scale(1);}
-    50%{transform:scale(1.05);}
-    100%{transform:scale(1);}
-}
+/* CARD */
 
 .card{
-    background:white;
-    color:#222;
-    border-radius:20px;
-    padding:25px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    background:#f9fbff;
+    border-radius:25px;
+    padding:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.08);
 }
 
-.question-type{
-    color:#888;
-    margin-bottom:10px;
-    font-size:14px;
+.image-box img{
+    width:100%;
+    border-radius:20px;
+    margin-bottom:20px;
+    max-height:220px;
+    object-fit:cover;
+}
+
+.question{
+    font-size:22px;
+    font-weight:bold;
+    color:#333;
+    margin-bottom:15px;
 }
 
 .message{
-    font-size:20px;
-    line-height:1.5;
-    margin-bottom:25px;
+    background:white;
+    border-left:6px solid #2575fc;
+    padding:18px;
+    border-radius:12px;
     font-style:italic;
+    margin-bottom:20px;
+    font-size:17px;
+    line-height:1.5;
 }
+
+/* OPTIONS */
 
 .options{
     display:grid;
@@ -150,64 +174,89 @@ body{
 .btn{
     border:none;
     padding:15px;
-    border-radius:14px;
+    border-radius:15px;
+    font-size:17px;
     cursor:pointer;
-    font-size:16px;
-    font-weight:bold;
     transition:0.3s;
+    font-weight:bold;
 }
 
 .btn:hover{
     transform:translateY(-3px);
 }
 
+.normal{
+    background:#edf2ff;
+}
+
 .correct{
-    background:#4CAF50;
+    background:#00c853 !important;
     color:white;
 }
 
 .wrong{
-    background:#ff4d4d;
+    background:#ff1744 !important;
     color:white;
 }
 
-.normal{
-    background:#edf2f7;
-}
+/* FEEDBACK */
 
 .feedback{
     margin-top:20px;
-    text-align:center;
-    font-weight:bold;
-    min-height:30px;
+    padding:18px;
+    border-radius:15px;
+    display:none;
+    animation:fade 0.4s;
 }
 
-.final-screen{
+.feedback.good{
+    background:#e8f5e9;
+    color:#1b5e20;
+}
+
+.feedback.bad{
+    background:#ffebee;
+    color:#b71c1c;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* FINAL */
+
+.final{
     display:none;
     text-align:center;
     padding:40px 25px;
 }
 
-.final-screen h1{
-    margin:20px 0;
-    font-size:40px;
+.final h1{
+    font-size:60px;
 }
 
 .rank{
-    margin:20px auto;
-    background:linear-gradient(45deg,#00c853,#00b0ff);
+    margin-top:20px;
+    background:linear-gradient(135deg,#00c853,#00b0ff);
+    color:white;
     padding:18px;
     border-radius:20px;
-    width:80%;
-    font-size:24px;
+    font-size:25px;
     font-weight:bold;
 }
 
 .restart{
     margin-top:25px;
-    background:#00b0ff;
-    color:white;
     border:none;
+    background:#2575fc;
+    color:white;
     padding:15px 25px;
     border-radius:15px;
     font-size:18px;
@@ -215,14 +264,10 @@ body{
 }
 
 footer{
-    position:absolute;
-    bottom:0;
-    width:100%;
     text-align:center;
     padding:15px;
-    background:rgba(0,0,0,0.2);
     font-size:12px;
-    color:#ddd;
+    color:#888;
 }
 
 </style>
@@ -232,58 +277,47 @@ footer{
 
 <div class="app">
 
-<div class="topbar">
+<div class="header">
 
-<div class="title">
-🕵️ Detective del Contenido
+<h1>🕵️ Detective del Contenido</h1>
+
+<p>Descubre la intención oculta de los mensajes digitales 👀</p>
+
+<div class="steps" id="steps"></div>
+
 </div>
 
-<div class="subtitle">
-Semana 2 — Análisis de Contenido
-</div>
+<div class="game" id="game">
 
-<div class="stats">
+<div class="top-info">
 
 <div class="lives" id="lives">
 ❤️❤️❤️
 </div>
 
 <div class="score">
-Puntos: <span id="score">0</span>
+⭐ <span id="score">0</span>
 </div>
 
 </div>
 
-<div class="progress-container">
-<div class="progress" id="progress"></div>
-</div>
-
-</div>
-
-<div class="game" id="game">
-
-<div class="level" id="level">
-Nivel 1
-</div>
-
-<div class="timer-box">
 <div class="timer" id="timer">
 10
-</div>
 </div>
 
 <div class="card">
 
-<div class="question-type">
-Analiza la intención del mensaje
+<div class="image-box">
+<img id="questionImage" src="">
 </div>
 
-<div class="message" id="message">
-Mensaje aquí
+<div class="question">
+¿Qué tipo de mensaje es?
 </div>
 
-<div class="options" id="options">
-</div>
+<div class="message" id="message"></div>
+
+<div class="options" id="options"></div>
 
 <div class="feedback" id="feedback"></div>
 
@@ -291,27 +325,20 @@ Mensaje aquí
 
 </div>
 
-<div class="final-screen" id="finalScreen">
+<div class="final" id="final">
 
 <h1>🎉</h1>
 
-<h2>Misión Completada</h2>
+<h2>Misión completada</h2>
 
-<p style="margin-top:10px;">
-Has terminado el reto de análisis.
-</p>
-
-<div class="rank" id="rank">
-Analista
-</div>
+<div class="rank" id="rank"></div>
 
 <h2 style="margin-top:20px;">
-Puntaje Final:
-<span id="finalScore">0</span>
+Puntaje final: <span id="finalScore"></span>
 </h2>
 
 <button class="restart" onclick="location.reload()">
-Jugar otra vez
+🔄 Jugar otra vez
 </button>
 
 </div>
@@ -327,33 +354,43 @@ Universidad Utel — Dr. Armando Sandoval Maravilla
 const questions = [
 
 {
-message:"¡Última oportunidad! Compra ahora y cambia tu vida para siempre.",
-options:["Persuasivo","Informativo","Neutral"],
-correct:"Persuasivo"
+image:"https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200",
+message:"¡Último día! Compra ahora y transforma tu vida para siempre.",
+correct:"Persuasivo",
+explanation:"👉 Es persuasivo porque intenta convencer emocionalmente al receptor para comprar rápidamente.",
+options:["Informativo","Persuasivo","Neutral"]
 },
 
 {
-message:"El INEGI reportó un aumento del 3% en empleo durante el trimestre.",
-options:["Fake News","Informativo","Propaganda"],
-correct:"Informativo"
+image:"https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1200",
+message:"Protección Civil informó lluvias intensas para el fin de semana.",
+correct:"Informativo",
+explanation:"👉 Es informativo porque comunica datos objetivos sin intentar manipular emociones.",
+options:["Propaganda","Informativo","Persuasivo"]
 },
 
 {
-message:"Nuestro movimiento salvará al país del desastre.",
-options:["Propaganda","Científico","Educativo"],
-correct:"Propaganda"
+image:"https://images.unsplash.com/photo-1541872703-74c5e44368f9?q=80&w=1200",
+message:"Nuestro movimiento es la única esperanza del país.",
+correct:"Propaganda",
+explanation:"👉 Es propaganda porque busca influir ideológicamente en las personas.",
+options:["Neutral","Propaganda","Académico"]
 },
 
 {
-message:"Este producto elimina el estrés en solo 5 minutos.",
-options:["Persuasivo","Neutral","Académico"],
-correct:"Persuasivo"
+image:"https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=1200",
+message:"Este producto elimina el estrés en minutos.",
+correct:"Persuasivo",
+explanation:"👉 Usa promesas emocionales para convencer al consumidor.",
+options:["Informativo","Persuasivo","Científico"]
 },
 
 {
-message:"Las lluvias comenzarán el miércoles según Protección Civil.",
-options:["Informativo","Manipulación","Publicidad"],
-correct:"Informativo"
+image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200",
+message:"El estudio mostró un aumento del 5% en empleo juvenil.",
+correct:"Informativo",
+explanation:"👉 Presenta resultados y datos concretos sin intención persuasiva.",
+options:["Propaganda","Persuasivo","Informativo"]
 }
 
 ];
@@ -368,15 +405,57 @@ const message = document.getElementById("message");
 const options = document.getElementById("options");
 const feedback = document.getElementById("feedback");
 const scoreText = document.getElementById("score");
-const progress = document.getElementById("progress");
 const timerText = document.getElementById("timer");
 const livesText = document.getElementById("lives");
+
+function createSteps(){
+
+const steps = document.getElementById("steps");
+
+questions.forEach((q,index)=>{
+
+const div = document.createElement("div");
+
+div.classList.add("step");
+
+div.innerText = index+1;
+
+steps.appendChild(div);
+
+});
+
+}
+
+function updateSteps(){
+
+const stepList = document.querySelectorAll(".step");
+
+stepList.forEach((step,index)=>{
+
+step.classList.remove("active");
+
+if(index < current){
+
+step.classList.add("done");
+
+}
+
+if(index === current){
+
+step.classList.add("active");
+
+}
+
+});
+
+}
 
 function loadQuestion(){
 
 clearInterval(timer);
 
 time = 10;
+
 timerText.innerText = time;
 
 timer = setInterval(()=>{
@@ -391,24 +470,25 @@ clearInterval(timer);
 
 loseLife();
 
-feedback.innerHTML = "⏰ Tiempo agotado";
+showFeedback(false,"⏰ Tiempo agotado.","Debías analizar la intención del mensaje.");
 
-setTimeout(nextQuestion,1200);
+setTimeout(nextQuestion,2500);
 
 }
 
 },1000);
 
+updateSteps();
+
 const q = questions[current];
 
 message.innerText = q.message;
 
+document.getElementById("questionImage").src = q.image;
+
 options.innerHTML = "";
 
-feedback.innerHTML = "";
-
-document.getElementById("level").innerText =
-"Nivel " + (current+1);
+feedback.style.display = "none";
 
 q.options.forEach(option=>{
 
@@ -423,8 +503,6 @@ btn.onclick = ()=>checkAnswer(option);
 options.appendChild(btn);
 
 });
-
-updateProgress();
 
 }
 
@@ -458,20 +536,35 @@ if(answer === q.correct){
 
 score += 100;
 
-feedback.innerHTML = "✅ Correcto. Excelente análisis.";
+scoreText.innerText = score;
+
+showFeedback(true,"✅ ¡Correcto!",q.explanation);
 
 }
 else{
 
-feedback.innerHTML = "❌ Incorrecto. Analiza mejor la intención.";
-
 loseLife();
+
+showFeedback(false,"❌ Incorrecto",q.explanation);
 
 }
 
-scoreText.innerText = score;
+setTimeout(nextQuestion,3500);
 
-setTimeout(nextQuestion,1500);
+}
+
+function showFeedback(type,title,text){
+
+feedback.style.display = "block";
+
+feedback.className = "feedback";
+
+feedback.classList.add(type ? "good" : "bad");
+
+feedback.innerHTML = `
+<h3>${title}</h3>
+<p style="margin-top:10px;">${text}</p>
+`;
 
 }
 
@@ -479,21 +572,11 @@ function loseLife(){
 
 lives--;
 
-if(lives === 2){
+if(lives===2) livesText.innerHTML="❤️❤️";
+if(lives===1) livesText.innerHTML="❤️";
+if(lives<=0){
 
-livesText.innerHTML = "❤️❤️";
-
-}
-
-if(lives === 1){
-
-livesText.innerHTML = "❤️";
-
-}
-
-if(lives <= 0){
-
-gameOver();
+finishGame();
 
 }
 
@@ -515,48 +598,24 @@ loadQuestion();
 
 }
 
-function updateProgress(){
-
-const percent = ((current)/questions.length)*100;
-
-progress.style.width = percent + "%";
-
-}
-
 function finishGame(){
 
 document.getElementById("game").style.display = "none";
 
-document.getElementById("finalScreen").style.display = "block";
+document.getElementById("final").style.display = "block";
 
 document.getElementById("finalScore").innerText = score;
 
-let rank = "Novato";
+let rank = "🧠 Analista";
 
-if(score >= 200) rank = "Analista";
-if(score >= 400) rank = "Experto";
-if(score >= 500) rank = "Maestro del Contenido";
+if(score >= 200) rank = "🔥 Experto";
+if(score >= 400) rank = "👑 Maestro del Contenido";
 
 document.getElementById("rank").innerText = rank;
 
-progress.style.width = "100%";
-
 }
 
-function gameOver(){
-
-clearInterval(timer);
-
-document.getElementById("game").style.display = "none";
-
-document.getElementById("finalScreen").style.display = "block";
-
-document.getElementById("finalScore").innerText = score;
-
-document.getElementById("rank").innerText =
-"💀 Sin vidas";
-
-}
+createSteps();
 
 loadQuestion();
 
