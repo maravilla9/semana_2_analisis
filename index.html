@@ -1,123 +1,565 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 2: Análisis de Contenido - Utel</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root { --primary: #2c3e50; --accent: #4CAF50; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; }
-        .app-card { width: 100%; max-width: 450px; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
-        .header { text-align: center; padding: 20px; border-bottom: 1px solid #eee; }
-        .logo { width: 150px; }
-        
-        /* Estilos del Juego */
-        .game-container { padding: 20px; flex-grow: 1; }
-        .question-card { background: #fff; border: 2px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 15px; }
-        .message-text { font-style: italic; background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--primary); }
-        .options { display: grid; gap: 10px; }
-        .opt-btn { padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white; cursor: pointer; transition: 0.3s; font-weight: 500; }
-        .opt-btn:hover { background: #f0f7ff; border-color: #007bff; }
-        
-        /* Pantalla de Éxito */
-        #success-screen { display: none; text-align: center; padding: 40px 20px; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .quote-box { background: #e8f5e9; padding: 20px; border-radius: 10px; margin: 20px 0; border: 1px solid #c8e6c9; font-weight: bold; color: #2e7d32; }
-        
-        .btn-share { display: block; padding: 15px; margin: 10px 0; border-radius: 8px; text-decoration: none; color: white; font-weight: bold; }
-        .wa { background: #25d366; }
-        .fb { background: #1877f2; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        footer { padding: 20px; text-align: center; font-size: 0.8rem; background: #f8f9fa; border-top: 1px solid #eee; }
-    </style>
+<title>Detective del Contenido - Semana 2</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#07111f,#132238,#1f3c5b);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.app{
+    width:100%;
+    max-width:500px;
+    min-height:100vh;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    position:relative;
+    overflow:hidden;
+}
+
+.topbar{
+    padding:20px;
+    background:rgba(0,0,0,0.25);
+}
+
+.title{
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#d0d0d0;
+    font-size:14px;
+}
+
+.stats{
+    display:flex;
+    justify-content:space-between;
+    margin-top:20px;
+    align-items:center;
+}
+
+.lives{
+    font-size:24px;
+}
+
+.score{
+    background:#4CAF50;
+    padding:10px 16px;
+    border-radius:30px;
+    font-weight:bold;
+}
+
+.progress-container{
+    width:100%;
+    height:12px;
+    background:rgba(255,255,255,0.1);
+    border-radius:20px;
+    margin-top:20px;
+    overflow:hidden;
+}
+
+.progress{
+    width:0%;
+    height:100%;
+    background:linear-gradient(to right,#00ff88,#00bfff);
+    transition:0.4s;
+}
+
+.game{
+    padding:25px;
+}
+
+.level{
+    color:#00e5ff;
+    font-size:14px;
+    margin-bottom:12px;
+}
+
+.timer-box{
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+.timer{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    border:5px solid #00e5ff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    font-weight:bold;
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.05);}
+    100%{transform:scale(1);}
+}
+
+.card{
+    background:white;
+    color:#222;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.question-type{
+    color:#888;
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.message{
+    font-size:20px;
+    line-height:1.5;
+    margin-bottom:25px;
+    font-style:italic;
+}
+
+.options{
+    display:grid;
+    gap:12px;
+}
+
+.btn{
+    border:none;
+    padding:15px;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.correct{
+    background:#4CAF50;
+    color:white;
+}
+
+.wrong{
+    background:#ff4d4d;
+    color:white;
+}
+
+.normal{
+    background:#edf2f7;
+}
+
+.feedback{
+    margin-top:20px;
+    text-align:center;
+    font-weight:bold;
+    min-height:30px;
+}
+
+.final-screen{
+    display:none;
+    text-align:center;
+    padding:40px 25px;
+}
+
+.final-screen h1{
+    margin:20px 0;
+    font-size:40px;
+}
+
+.rank{
+    margin:20px auto;
+    background:linear-gradient(45deg,#00c853,#00b0ff);
+    padding:18px;
+    border-radius:20px;
+    width:80%;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.restart{
+    margin-top:25px;
+    background:#00b0ff;
+    color:white;
+    border:none;
+    padding:15px 25px;
+    border-radius:15px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+footer{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    text-align:center;
+    padding:15px;
+    background:rgba(0,0,0,0.2);
+    font-size:12px;
+    color:#ddd;
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="app-card">
-    <div class="header">
-        <img src="https://i.postimg.cc/FKz4sz2C/logoutelsinfondo.png" class="logo" alt="Utel">
-        <h3 style="margin: 10px 0 0;">Semana 2: Análisis de Contenido</h3>
-    </div>
+<div class="app">
 
-    <div class="game-container" id="game-view">
-        <p style="font-size: 0.9rem; color: #666;"><strong>Reto:</strong> Clasifica el mensaje según su intención comunicativa.</p>
-        
-        <div class="question-card">
-            <div id="progress" style="font-size: 0.8rem; color: #888; margin-bottom: 10px;">Pregunta 1 de 3</div>
-            <div class="message-text" id="current-message">"¡Solo por hoy! Obtén 50% de descuento en tu suscripción y cambia tu vida ahora."</div>
-            <div class="options">
-                <button class="opt-btn" onclick="checkAnswer('Persuasivo')">Persuasivo</button>
-                <button class="opt-btn" onclick="checkAnswer('Informativo')">Informativo</button>
-                <button class="opt-btn" onclick="checkAnswer('Propaganda')">Propaganda</button>
-            </div>
-        </div>
-    </div>
+<div class="topbar">
 
-    <div id="success-screen">
-        <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: #4CAF50;"></i>
-        <h2>¡Excelente Analista!</h2>
-        <p>Has superado el reto de la semana.</p>
-        <div class="quote-box" id="motivational-quote"></div>
-        
-        <p style="font-size: 0.8rem;">Comparte tu logro:</p>
-        <a id="wa-link" href="#" class="btn-share wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-        <a id="fb-link" href="#" class="btn-share fb"><i class="fa-brands fa-facebook"></i> Facebook</a>
-        
-        <button onclick="location.reload()" style="margin-top:20px; background:none; border:none; color:#007bff; cursor:pointer; text-decoration:underline;">Reiniciar reto</button>
-    </div>
+<div class="title">
+🕵️ Detective del Contenido
+</div>
 
-    <footer>
-        <p><strong>Universidad Utel</strong><br>Dr. Armando Sandoval Maravilla</p>
-    </footer>
+<div class="subtitle">
+Semana 2 — Análisis de Contenido
+</div>
+
+<div class="stats">
+
+<div class="lives" id="lives">
+❤️❤️❤️
+</div>
+
+<div class="score">
+Puntos: <span id="score">0</span>
+</div>
+
+</div>
+
+<div class="progress-container">
+<div class="progress" id="progress"></div>
+</div>
+
+</div>
+
+<div class="game" id="game">
+
+<div class="level" id="level">
+Nivel 1
+</div>
+
+<div class="timer-box">
+<div class="timer" id="timer">
+10
+</div>
+</div>
+
+<div class="card">
+
+<div class="question-type">
+Analiza la intención del mensaje
+</div>
+
+<div class="message" id="message">
+Mensaje aquí
+</div>
+
+<div class="options" id="options">
+</div>
+
+<div class="feedback" id="feedback"></div>
+
+</div>
+
+</div>
+
+<div class="final-screen" id="finalScreen">
+
+<h1>🎉</h1>
+
+<h2>Misión Completada</h2>
+
+<p style="margin-top:10px;">
+Has terminado el reto de análisis.
+</p>
+
+<div class="rank" id="rank">
+Analista
+</div>
+
+<h2 style="margin-top:20px;">
+Puntaje Final:
+<span id="finalScore">0</span>
+</h2>
+
+<button class="restart" onclick="location.reload()">
+Jugar otra vez
+</button>
+
+</div>
+
+<footer>
+Universidad Utel — Dr. Armando Sandoval Maravilla
+</footer>
+
 </div>
 
 <script>
-    const questions = [
-        { msg: "¡Solo por hoy! Obtén 50% de descuento en tu suscripción y cambia tu vida ahora.", ans: "Persuasivo" },
-        { msg: "El reporte meteorológico indica que habrá lluvias moderadas en la zona centro del país.", ans: "Informativo" },
-        { msg: "Únete a nuestro movimiento por la libertad; juntos somos la única esperanza del país.", ans: "Propaganda" }
-    ];
 
-    const quotes = [
-        "¡Tu agudeza crítica es tu mejor herramienta profesional!",
-        "Analizar el contenido es el primer paso para no ser manipulado.",
-        "¡Felicidades! Entiendes el poder de los mensajes digitales.",
-        "Sigue así, el mundo necesita analistas con tu visión."
-    ];
+const questions = [
 
-    let currentStep = 0;
+{
+message:"¡Última oportunidad! Compra ahora y cambia tu vida para siempre.",
+options:["Persuasivo","Informativo","Neutral"],
+correct:"Persuasivo"
+},
 
-    function checkAnswer(choice) {
-        if (choice === questions[currentStep].ans) {
-            currentStep++;
-            if (currentStep < questions.length) {
-                updateQuestion();
-            } else {
-                showSuccess();
-            }
-        } else {
-            alert("¡Casi! Analiza de nuevo la intención del mensaje.");
-        }
-    }
+{
+message:"El INEGI reportó un aumento del 3% en empleo durante el trimestre.",
+options:["Fake News","Informativo","Propaganda"],
+correct:"Informativo"
+},
 
-    function updateQuestion() {
-        document.getElementById('current-message').innerText = questions[currentStep].msg;
-        document.getElementById('progress').innerText = `Pregunta ${currentStep + 1} de ${questions.length}`;
-    }
+{
+message:"Nuestro movimiento salvará al país del desastre.",
+options:["Propaganda","Científico","Educativo"],
+correct:"Propaganda"
+},
 
-    function showSuccess() {
-        document.getElementById('game-view').style.display = 'none';
-        const screen = document.getElementById('success-screen');
-        screen.style.display = 'block';
-        
-        const finalQuote = quotes[Math.floor(Math.random() * quotes.length)];
-        document.getElementById('motivational-quote').innerText = `"${finalQuote}"`;
+{
+message:"Este producto elimina el estrés en solo 5 minutos.",
+options:["Persuasivo","Neutral","Académico"],
+correct:"Persuasivo"
+},
 
-        const shareTxt = encodeURIComponent("🎯 ¡Reto de Análisis Utel Cumplido! " + finalQuote);
-        document.getElementById('wa-link').href = `https://api.whatsapp.com/send?text=${shareTxt}`;
-        document.getElementById('fb-link').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-    }
+{
+message:"Las lluvias comenzarán el miércoles según Protección Civil.",
+options:["Informativo","Manipulación","Publicidad"],
+correct:"Informativo"
+}
+
+];
+
+let current = 0;
+let score = 0;
+let lives = 3;
+let time = 10;
+let timer;
+
+const message = document.getElementById("message");
+const options = document.getElementById("options");
+const feedback = document.getElementById("feedback");
+const scoreText = document.getElementById("score");
+const progress = document.getElementById("progress");
+const timerText = document.getElementById("timer");
+const livesText = document.getElementById("lives");
+
+function loadQuestion(){
+
+clearInterval(timer);
+
+time = 10;
+timerText.innerText = time;
+
+timer = setInterval(()=>{
+
+time--;
+
+timerText.innerText = time;
+
+if(time <= 0){
+
+clearInterval(timer);
+
+loseLife();
+
+feedback.innerHTML = "⏰ Tiempo agotado";
+
+setTimeout(nextQuestion,1200);
+
+}
+
+},1000);
+
+const q = questions[current];
+
+message.innerText = q.message;
+
+options.innerHTML = "";
+
+feedback.innerHTML = "";
+
+document.getElementById("level").innerText =
+"Nivel " + (current+1);
+
+q.options.forEach(option=>{
+
+const btn = document.createElement("button");
+
+btn.classList.add("btn","normal");
+
+btn.innerText = option;
+
+btn.onclick = ()=>checkAnswer(option);
+
+options.appendChild(btn);
+
+});
+
+updateProgress();
+
+}
+
+function checkAnswer(answer){
+
+clearInterval(timer);
+
+const q = questions[current];
+
+const buttons = document.querySelectorAll(".btn");
+
+buttons.forEach(btn=>{
+
+btn.disabled = true;
+
+if(btn.innerText === q.correct){
+
+btn.classList.add("correct");
+
+}
+
+if(btn.innerText === answer && answer !== q.correct){
+
+btn.classList.add("wrong");
+
+}
+
+});
+
+if(answer === q.correct){
+
+score += 100;
+
+feedback.innerHTML = "✅ Correcto. Excelente análisis.";
+
+}
+else{
+
+feedback.innerHTML = "❌ Incorrecto. Analiza mejor la intención.";
+
+loseLife();
+
+}
+
+scoreText.innerText = score;
+
+setTimeout(nextQuestion,1500);
+
+}
+
+function loseLife(){
+
+lives--;
+
+if(lives === 2){
+
+livesText.innerHTML = "❤️❤️";
+
+}
+
+if(lives === 1){
+
+livesText.innerHTML = "❤️";
+
+}
+
+if(lives <= 0){
+
+gameOver();
+
+}
+
+}
+
+function nextQuestion(){
+
+current++;
+
+if(current >= questions.length){
+
+finishGame();
+
+return;
+
+}
+
+loadQuestion();
+
+}
+
+function updateProgress(){
+
+const percent = ((current)/questions.length)*100;
+
+progress.style.width = percent + "%";
+
+}
+
+function finishGame(){
+
+document.getElementById("game").style.display = "none";
+
+document.getElementById("finalScreen").style.display = "block";
+
+document.getElementById("finalScore").innerText = score;
+
+let rank = "Novato";
+
+if(score >= 200) rank = "Analista";
+if(score >= 400) rank = "Experto";
+if(score >= 500) rank = "Maestro del Contenido";
+
+document.getElementById("rank").innerText = rank;
+
+progress.style.width = "100%";
+
+}
+
+function gameOver(){
+
+clearInterval(timer);
+
+document.getElementById("game").style.display = "none";
+
+document.getElementById("finalScreen").style.display = "block";
+
+document.getElementById("finalScore").innerText = score;
+
+document.getElementById("rank").innerText =
+"💀 Sin vidas";
+
+}
+
+loadQuestion();
+
 </script>
 
 </body>
