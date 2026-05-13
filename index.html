@@ -3,86 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 2: Análisis de Contenido</title>
+    <title>Semana 2: Análisis de Contenido - Utel</title>
+    <!-- Cargamos iconos profesionales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; text-align: center; }
-        .container { width: 95%; max-width: 500px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .logo { width: 200px; margin-bottom: 10px; }
-        
-        /* Tarjeta de Resultado */
-        #resultado-card { display: none; background: #e7f3ff; border: 2px solid #007bff; border-radius: 12px; padding: 20px; margin-top: 20px; animation: slideUp 0.5s ease; }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .frase { font-size: 1.2rem; font-weight: bold; color: #0056b3; margin: 15px 0; font-style: italic; }
-        
-        /* Botones */
-        .btn-jugar { background: #007bff; color: white; padding: 15px 30px; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer; text-decoration: none; display: inline-block; }
-        .btn-compartir { display: flex; justify-content: space-around; margin-top: 20px; flex-wrap: wrap; }
-        .social-btn { padding: 10px 15px; border-radius: 8px; text-decoration: none; color: white; font-weight: bold; font-size: 0.9rem; margin: 5px; flex-grow: 1; }
-        .whatsapp { background: #25d366; }
-        .facebook { background: #1877f2; }
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #4CAF50;
+            --whatsapp-color: #25d366;
+            --facebook-color: #1877f2;
+        }
 
-        footer { margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; font-size: 0.85rem; color: #666; }
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; padding: 0; 
+            background: #e9ecef;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: #fff;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        @media (min-height: 700px) {
+            .app-container { min-height: auto; border-radius: 20px; margin: 20px; }
+        }
+
+        .header { padding: 25px; text-align: center; }
+        .logo { width: 180px; height: auto; margin-bottom: 15px; }
+
+        .game-area {
+            padding: 20px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        /* Tarjeta de Felicitación */
+        #reward-card {
+            display: none;
+            padding: 30px 20px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f1f1 100%);
+            border: 2px solid #ddd;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confetti-icon { font-size: 3rem; color: #f1c40f; margin-bottom: 15px; }
+        
+        .quote-box {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid var(--accent-color);
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        /* Botones de Acción */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .btn:active { transform: scale(0.98); }
+        .btn-main { background: var(--primary-color); color: #fff; }
+        .btn-wa { background: var(--whatsapp-color); color: #fff; }
+        .btn-fb { background: var(--facebook-color); color: #fff; }
+
+        footer {
+            padding: 20px;
+            background: #f8f9fa;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <img src="https://i.postimg.cc/FKz4sz2C/logoutelsinfondo.png" alt="Universidad Utel" class="logo">
-    <h2>Semana 2: Análisis de Contenido</h2>
-    
-    <p>¡Bienvenido al reto interactivo!</p>
-    
-    <div id="seccion-juego">
-        <button class="btn-jugar" onclick="mostrarResultado()">¡Haz clic aquí al terminar de jugar!</button>
+<div class="app-container">
+    <div class="header">
+        <img src="https://i.postimg.cc/FKz4sz2C/logoutelsinfondo.png" alt="Logo Utel" class="logo">
+        <h2 style="margin:0; color:#333;">Semana 2: Análisis de Contenido</h2>
     </div>
 
-    <div id="resultado-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" width="60" alt="Check">
-        <h3>¡Gracias por jugar!</h3>
-        <p>Espero que te hayas divertido analizando mensajes y tecnología.</p>
-        
-        <div class="frase" id="frase-motivacional"></div>
-        
-        <p>Comparte tu logro con tus amigos y familia:</p>
-        <div class="btn-compartir">
-            <a id="share-wa" href="#" class="social-btn whatsapp">WhatsApp</a>
-            <a id="share-fb" href="#" class="social-btn facebook">Facebook</a>
+    <div class="game-area">
+        <div id="intro-view">
+            <p>Bienvenido al simulador de análisis de mensajes.</p>
+            <div style="background:#eee; height:200px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; border:2px dashed #ccc;">
+                <i class="fa-solid fa-gamepad fa-3x" style="color:#999;"></i>
+                <p style="position:absolute; margin-top:60px; font-size:0.8rem; color:#666;">[Espacio para tu juego]</p>
+            </div>
+            <button class="btn btn-main" onclick="generateSuccess()">He terminado el análisis</button>
         </div>
-        
-        <button onclick="mostrarResultado()" style="margin-top:15px; background:none; border:none; color:#007bff; cursor:pointer; text-decoration:underline;">Volver a jugar para otra frase</button>
+
+        <div id="reward-card">
+            <i class="fa-solid fa-trophy confetti-icon"></i>
+            <h2 style="margin:0;">¡Felicidades!</h2>
+            <p style="color:#666;">Has completado el reto semanal con éxito.</p>
+            
+            <div class="quote-box" id="random-quote"></div>
+
+            <p style="font-size:0.9rem; margin-top:20px;">Presume tu logro con tus colegas:</p>
+            <a id="share-wa" href="#" class="btn btn-wa"><i class="fa-brands fa-whatsapp"></i> Compartir en WhatsApp</a>
+            <a id="share-fb" href="#" class="btn btn-fb"><i class="fa-brands fa-facebook"></i> Compartir en Facebook</a>
+            
+            <button onclick="generateSuccess()" style="background:none; border:none; color:#007bff; margin-top:15px; cursor:pointer;">
+                <i class="fa-solid fa-rotate-right"></i> Obtener otra frase
+            </button>
+        </div>
     </div>
 
     <footer>
-        <p><strong>Universidad Utel</strong></p>
-        <p>Dr. Armando Sandoval Maravilla</p>
+        <p style="margin:0; font-weight:bold;">Universidad Utel</p>
+        <p style="margin:5px 0 0; font-size:0.8rem;">Dr. Armando Sandoval Maravilla</p>
     </footer>
 </div>
 
 <script>
     const frases = [
-        "¡Tu capacidad de análisis no tiene límites!",
-        "La comunicación es el arma más poderosa, ¡y hoy la dominaste!",
-        "¡Excelente trabajo! Sigue explorando el mundo de los datos.",
-        "¡Felicidades! Tu visión crítica es clave para el éxito profesional.",
-        "¡Dominas la tecnología de la comunicación como un experto!"
+        "¡Tu análisis de hoy construye el éxito de mañana!",
+        "La tecnología es solo una herramienta, ¡tu mente es el motor!",
+        "Analizar es comprender; comprender es liderar.",
+        "¡Eres un experto detectando patrones de comunicación!",
+        "La constancia es la base del crecimiento académico.",
+        "¡Excelente visión crítica de los mensajes digitales!"
     ];
 
-    function mostrarResultado() {
-        // Seleccionar frase aleatoria
-        const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
-        document.getElementById('frase-motivacional').innerText = `"${fraseAleatoria}"`;
+    function generateSuccess() {
+        const quoteElement = document.getElementById('random-quote');
+        const randomFrase = frases[Math.floor(Math.random() * frases.length)];
         
-        // Mostrar la tarjeta
-        document.getElementById('resultado-card').style.display = 'block';
-        document.getElementById('seccion-juego').style.display = 'none';
+        // Animación simple de cambio
+        quoteElement.style.opacity = 0;
+        setTimeout(() => {
+            quoteElement.innerText = randomFrase;
+            quoteElement.style.opacity = 1;
+        }, 200);
 
-        // Configurar enlaces de compartir
-        const textoCompartir = encodeURIComponent("¡Acabo de completar mi reto de Análisis de Contenido en la Semana 2! " + fraseAleatoria);
-        const urlPagina = encodeURIComponent(window.location.href);
+        // Mostrar tarjeta y ocultar intro
+        document.getElementById('intro-view').style.display = 'none';
+        document.getElementById('reward-card').style.display = 'block';
 
-        document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${textoCompartir}`;
-        document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${urlPagina}`;
+        // Configurar enlaces de redes sociales
+        const shareText = encodeURIComponent("🎯 ¡Reto Cumplido! " + randomFrase + " #UniversidadUtel #AnálisisDeContenido");
+        const currentUrl = encodeURIComponent(window.location.href);
+
+        document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${shareText}`;
+        document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
     }
 </script>
 
