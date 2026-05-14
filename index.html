@@ -5,47 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🕵️ Detective del Contenido - Semana 2</title>
 <style>
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #1a0f35, #0f1b4a);
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 15px;
-    }
-    .logo { max-width: 120px; margin-bottom: 8px; }
-    h1 { font-size: 22px; color: #00f0ff; }
-    .subtitle { font-size: 16px; color: #a0d8ff; }
-    .legend { font-size: 13px; color:#ccc; margin-top:6px; }
-
-    .game-container {
-        max-width: 500px;
-        background: rgba(20,25,60,0.92);
-        border: 2px solid #00f0ff;
-        border-radius: 12px;
-        padding: 15px;
-        box-shadow: 0 0 20px rgba(0,240,255,0.4);
-    }
+    body { font-family:'Segoe UI',sans-serif; background:linear-gradient(135deg,#1a0f35,#0f1b4a); color:white; display:flex; flex-direction:column; align-items:center; padding:15px; }
+    .logo { max-width:120px; margin-bottom:8px; }
+    h1 { font-size:22px; color:#00f0ff; }
+    .subtitle { font-size:16px; color:#a0d8ff; }
+    .legend { font-size:13px; color:#ccc; margin-top:6px; }
+    .game-container { max-width:500px; background:rgba(20,25,60,0.92); border:2px solid #00f0ff; border-radius:12px; padding:15px; box-shadow:0 0 20px rgba(0,240,255,0.4); }
     .question { font-size:18px; text-align:center; margin:15px 0; }
     .options { display:grid; gap:10px; }
-    .option-btn {
-        padding:10px; font-size:14px;
-        background:rgba(35,45,90,0.9); border:2px solid #5566aa;
-        border-radius:10px; color:white; cursor:pointer;
-    }
+    .option-btn { padding:10px; font-size:14px; background:rgba(35,45,90,0.9); border:2px solid #5566aa; border-radius:10px; color:white; cursor:pointer; }
     .option-btn:hover { background:rgba(0,240,255,0.2); border-color:#00f0ff; }
     .feedback { margin-top:12px; padding:10px; border-radius:10px; font-size:14px; display:none; }
     .correct { background:rgba(0,220,100,0.3); border:2px solid #00ff88; }
     .wrong { background:rgba(240,60,60,0.3); border:2px solid #ff6666; }
     .result-screen { text-align:center; display:none; }
     .score { font-size:20px; margin:10px 0; color:#00f0ff; }
-    .copy-btn {
-        background:linear-gradient(90deg,#00ffaa,#00cc77);
-        color:#000; font-weight:bold; border:none;
-        padding:8px 16px; font-size:14px; border-radius:20px;
-        cursor:pointer; margin:5px;
-    }
+    .copy-btn { background:linear-gradient(90deg,#00ffaa,#00cc77); color:#000; font-weight:bold; border:none; padding:8px 16px; font-size:14px; border-radius:20px; cursor:pointer; margin:5px; }
 </style>
 </head>
 <body>
@@ -78,8 +53,8 @@
 <script>
 const questions = [
     { q:"¿Qué es la propaganda?", options:["A) Información neutral","B) Mensaje diseñado para influir"], correct:1, explanation:"La propaganda busca persuadir o manipular opiniones." },
-    { q:"Pregunta 2 aquí", options:["A) Opción 1","B) Opción 2"], correct:0, explanation:"Explicación breve aquí." },
-    { q:"Pregunta 3 aquí", options:["A) Opción 1","B) Opción 2"], correct:1, explanation:"Explicación breve aquí." }
+    { q:"¿Qué significa analizar contenido?", options:["A) Revisar críticamente un mensaje","B) Memorizar sin cuestionar"], correct:0, explanation:"Analizar es reflexionar y cuestionar el mensaje." },
+    { q:"¿Cuál es la finalidad del juego?", options:["A) Desarrollar pensamiento crítico","B) Pasar el tiempo"], correct:0, explanation:"El objetivo es aprender a distinguir mensajes y reflexionar." }
 ];
 
 let current=0, score=0;
