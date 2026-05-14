@@ -18,180 +18,182 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow-x: hidden;
+        padding: 15px;
     }
     .game-container {
         width: 100%;
-        max-width: 900px;
-        background: rgba(20, 25, 50, 0.85);
+        max-width: 850px;
+        background: rgba(15, 20, 45, 0.95);
         border: 2px solid var(--neon);
         border-radius: 25px;
-        padding: 30px;
-        box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
-        backdrop-filter: blur(10px);
+        padding: 35px;
+        box-shadow: 0 0 50px rgba(0, 240, 255, 0.25);
+    }
+    .progress-container {
+        margin-bottom: 30px;
+    }
+    .step {
+        text-align: center;
+        font-size: 19px;
+        margin-bottom: 8px;
     }
     .progress {
-        height: 12px;
-        background: #222;
+        height: 10px;
+        background: #112233;
         border-radius: 10px;
-        margin-bottom: 25px;
         overflow: hidden;
     }
     .progress-bar {
         height: 100%;
         background: linear-gradient(90deg, var(--neon), var(--purple));
         width: 20%;
-        transition: width 0.4s ease;
+        transition: width 0.5s ease;
     }
-    .step { text-align: center; margin-bottom: 10px; font-size: 18px; }
-    
+
     .question {
         font-size: 26px;
-        margin: 25px 0;
         text-align: center;
-        line-height: 1.3;
+        margin: 35px 0;
+        line-height: 1.4;
     }
     .options {
         display: grid;
-        gap: 15px;
-        margin-top: 30px;
+        gap: 14px;
     }
-    button {
-        padding: 18px;
+    .option-btn {
+        padding: 18px 20px;
         font-size: 19px;
-        background: rgba(255,255,255,0.1);
-        border: 2px solid #444;
-        border-radius: 15px;
+        background: rgba(255,255,255,0.07);
+        border: 2px solid #445577;
+        border-radius: 16px;
         color: white;
         cursor: pointer;
         transition: all 0.3s;
     }
-    button:hover {
-        background: rgba(0, 240, 255, 0.2);
+    .option-btn:hover {
+        background: rgba(0, 240, 255, 0.15);
         border-color: var(--neon);
-        transform: translateY(-3px);
     }
+
     .feedback {
         margin-top: 25px;
-        padding: 20px;
-        border-radius: 15px;
-        font-size: 20px;
-        min-height: 80px;
+        padding: 22px;
+        border-radius: 16px;
+        font-size: 19px;
+        line-height: 1.5;
+        display: none;
     }
-    .correct { background: rgba(0, 200, 83, 0.2); border: 2px solid #00c853; }
-    .wrong { background: rgba(255, 50, 50, 0.2); border: 2px solid #ff3333; }
+    .correct { background: rgba(0,180,80,0.25); border: 2px solid #00cc66; }
+    .wrong  { background: rgba(200,40,40,0.25); border: 2px solid #ff4444; }
 
-    .result {
+    .result-screen {
         text-align: center;
-        font-size: 32px;
-        margin: 30px 0;
+        display: none;
     }
-    .share-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 30px;
+    .score {
+        font-size: 48px;
+        margin: 20px 0;
     }
-    .share-btn {
-        padding: 15px 30px;
-        font-size: 18px;
-        border-radius: 50px;
-        text-decoration: none;
+    .copy-btn {
+        background: #00cc88;
         color: white;
+        border: none;
+        padding: 16px 35px;
+        font-size: 19px;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-top: 25px;
     }
-    .whatsapp { background: #25D366; }
-    .facebook { background: #1877F2; }
 </style>
 </head>
 <body>
 
 <div class="game-container">
-    <div class="step" id="step">Paso <span id="current">1</span> de 5</div>
-    <div class="progress"><div class="progress-bar" id="progress"></div></div>
-
-    <div id="question-container">
-        <div class="question" id="question"></div>
-        <div class="options" id="options"></div>
-        <div class="feedback" id="feedback" style="display:none;"></div>
+    <div class="progress-container">
+        <div class="step">Paso <span id="current-step">1</span> de 5</div>
+        <div class="progress">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
     </div>
 
-    <div id="result-screen" style="display:none;">
+    <div id="game-screen">
+        <div class="question" id="question-text"></div>
+        <div class="options" id="options"></div>
+        <div class="feedback" id="feedback"></div>
+    </div>
+
+    <div id="result-screen" class="result-screen">
         <h1>¡Misión Completada!</h1>
-        <div class="result" id="final-score"></div>
-        <p id="message"></p>
-        
-        <div class="share-buttons">
-            <a href="#" id="whatsapp" class="share-btn whatsapp" target="_blank">📱 Compartir en WhatsApp</a>
-            <a href="#" id="facebook" class="share-btn facebook" target="_blank">📘 Compartir en Facebook</a>
-        </div>
-        <button onclick="restartGame()" style="margin-top:30px; padding:15px 40px; font-size:18px;">Jugar de nuevo</button>
+        <div class="score" id="final-score"></div>
+        <p id="final-message"></p>
+        <button class="copy-btn" onclick="copyResult()">📋 Copiar resultado para compartir</button>
     </div>
 </div>
 
 <script>
-// ================== CONFIGURA TUS 5 PREGUNTAS AQUÍ ==================
+// ====== REEMPLAZA ESTAS 5 PREGUNTAS CON LAS TUYAS ======
 const questions = [
     {
-        q: "1. ¿Qué es la propaganda?",
-        options: ["Información completamente objetiva", "Mensaje diseñado para influir en opiniones o conductas", "Solo anuncios de productos", "Noticias verificadas"],
+        q: "¿Qué es la propaganda?",
+        options: ["Información neutral y objetiva", "Mensaje diseñado para influir en las opiniones", "Solo anuncios comerciales", "Noticias verificadas por periodistas"],
         correct: 1,
-        explanation: "La propaganda es un mensaje intencional para persuadir o manipular emociones y opiniones, no necesariamente objetivo."
+        explanation: "La propaganda busca influir o manipular opiniones y conductas, no es información neutral."
     },
     {
-        q: "2. ¿Cuál es un indicio claro de fake news?",
-        options: ["Tiene muchas reacciones", "No cita fuentes confiables y genera emociones fuertes", "Está en un periódico digital", "Tiene buena ortografía"],
-        correct: 1,
-        explanation: "Las fake news suelen usar emociones extremas y carecen de fuentes verificables."
-    },
-    // Agrega aquí las preguntas 3, 4 y 5 con el mismo formato
-    {
-        q: "3. ¿Qué significa 'cherry picking' en análisis de contenido?",
-        options: ["Elegir solo la información que favorece tu argumento", "Publicar fotos de cerezas", "Un tipo de publicidad", "Analizar todo el contexto"],
+        q: "Pregunta 2 aquí",
+        options: ["Opción A", "Opción B", "Opción C", "Opción D"],
         correct: 0,
-        explanation: "Cherry picking es seleccionar solo los datos que apoyan tu punto de vista ignorando el resto."
+        explanation: "Explicación pedagógica cuando se equivoquen."
     },
     {
-        q: "4. En un anuncio, ¿qué técnica usa una celebridad para vender un producto?",
-        options: ["Testimonio", "Transferencia", "Bandwagon", "Glittering generalities"],
-        correct: 0,
-        explanation: "Usar a una celebridad es la técnica de Testimonio."
+        q: "Pregunta 3 aquí",
+        options: ["Opción A", "Opción B", "Opción C", "Opción D"],
+        correct: 2,
+        explanation: "Explicación pedagógica cuando se equivoquen."
     },
     {
-        q: "5. ¿Qué es más importante al analizar una imagen digital?",
-        options: ["Solo el texto que tiene", "El contexto, autor, propósito y posibles manipulaciones", "Que sea bonita", "El número de likes"],
+        q: "Pregunta 4 aquí",
+        options: ["Opción A", "Opción B", "Opción C", "Opción D"],
         correct: 1,
-        explanation: "Siempre hay que analizar el contexto completo y posibles manipulaciones de la imagen."
+        explanation: "Explicación pedagógica cuando se equivoquen."
+    },
+    {
+        q: "Pregunta 5 aquí",
+        options: ["Opción A", "Opción B", "Opción C", "Opción D"],
+        correct: 3,
+        explanation: "Explicación pedagógica cuando se equivoquen."
     }
 ];
 
-let currentQuestion = 0;
+let current = 0;
 let score = 0;
 
 function loadQuestion() {
-    const q = questions[currentQuestion];
-    document.getElementById("question").textContent = q.q;
-    document.getElementById("current").textContent = currentQuestion + 1;
-    document.getElementById("progress").style.width = ((currentQuestion + 1) / 5 * 100) + "%";
+    const q = questions[current];
+    document.getElementById("question-text").textContent = q.q;
+    document.getElementById("current-step").textContent = current + 1;
+    document.getElementById("progress-bar").style.width = ((current + 1) / 5 * 100) + "%";
 
     const optionsDiv = document.getElementById("options");
     optionsDiv.innerHTML = "";
 
-    q.options.forEach((option, index) => {
+    q.options.forEach((opt, i) => {
         const btn = document.createElement("button");
-        btn.textContent = option;
-        btn.onclick = () => selectAnswer(index);
+        btn.className = "option-btn";
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(i);
         optionsDiv.appendChild(btn);
     });
 
     document.getElementById("feedback").style.display = "none";
 }
 
-function selectAnswer(selected) {
-    const q = questions[currentQuestion];
+function checkAnswer(selected) {
+    const q = questions[current];
     const feedback = document.getElementById("feedback");
-    const buttons = document.querySelectorAll(".options button");
+    const buttons = document.querySelectorAll(".option-btn");
 
-    buttons.forEach(btn => btn.disabled = true);
+    buttons.forEach(b => b.disabled = true);
 
     if (selected === q.correct) {
         score++;
@@ -199,50 +201,42 @@ function selectAnswer(selected) {
         feedback.innerHTML = "✅ ¡Correcto!";
     } else {
         feedback.className = "feedback wrong";
-        feedback.innerHTML = `❌ Incorrecto.<br><strong>Explicación:</strong> ${q.explanation}`;
+        feedback.innerHTML = `❌ Incorrecto.<br><strong>Por qué:</strong> ${q.explanation}`;
     }
-
     feedback.style.display = "block";
 
     setTimeout(() => {
-        currentQuestion++;
-        if (currentQuestion < questions.length) {
+        current++;
+        if (current < questions.length) {
             loadQuestion();
         } else {
-            showResults();
+            showResult();
         }
-    }, 2800);
+    }, 2600);
 }
 
-function showResults() {
-    document.getElementById("question-container").style.display = "none";
+function showResult() {
+    document.getElementById("game-screen").style.display = "none";
     document.getElementById("result-screen").style.display = "block";
 
-    const percentage = Math.round((score / 5) * 100);
-    document.getElementById("final-score").textContent = `${score}/5 (${percentage}%)`;
+    const percent = Math.round((score / 5) * 100);
+    document.getElementById("final-score").textContent = `${score}/5 (${percent}%)`;
 
-    let msg = "";
-    if (score === 5) msg = "¡Eres un Maestro Detective del Contenido! 🏆";
-    else if (score >= 3) msg = "¡Buen trabajo! Sigue afilando tus habilidades.";
-    else msg = "Revisa los conceptos y vuelve a intentarlo. ¡Puedes mejorar!";
-
-    document.getElementById("message").textContent = msg;
-
-    // Enlaces de compartir
-    const text = `Obtuve ${score}/5 en el juego Detective del Contenido de la Utel. ¿Te atreves a intentarlo?`;
-    document.getElementById("whatsapp").href = `https://wa.me/?text=${encodeURIComponent(text + " https://tu-enlace-aqui")}`;
-    document.getElementById("facebook").href = `https://www.facebook.com/sharer/sharer.php?u=https://tu-enlace-aqui&quote=${encodeURIComponent(text)}`;
+    let msg = score === 5 ? "¡Excelente! Eres un verdadero Detective del Contenido." :
+              score >= 3 ? "Buen trabajo. Puedes mejorar aún más." :
+              "Revisa los conceptos y vuelve a intentarlo.";
+    document.getElementById("final-message").textContent = msg;
 }
 
-function restartGame() {
-    currentQuestion = 0;
-    score = 0;
-    document.getElementById("question-container").style.display = "block";
-    document.getElementById("result-screen").style.display = "none";
-    loadQuestion();
+function copyResult() {
+    const percent = Math.round((score / 5) * 100);
+    const text = `Obtuve ${score}/5 (${percent}%) en el juego Detective del Contenido. ¡Inténtalo tú también!`;
+    navigator.clipboard.writeText(text).then(() => {
+        alert("✅ Resultado copiado. Pégalo en WhatsApp o Facebook.");
+    });
 }
 
-// Iniciar el juego
+// Iniciar
 loadQuestion();
 </script>
 </body>
