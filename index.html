@@ -1,108 +1,342 @@
-<!-- SOLO REEMPLAZA LA SECCIÓN FINAL POR ESTA -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="final" id="final">
+<title>Invitación - Detective del Contenido</title>
 
-<div style="font-size:55px;">
-🎉
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#141e30,#243b55);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    color:white;
+}
+
+.slide{
+
+    width:100%;
+    max-width:1400px;
+    background:rgba(255,255,255,0.05);
+    border-radius:30px;
+    padding:50px;
+    display:grid;
+    grid-template-columns:1.3fr 0.7fr;
+    gap:50px;
+    backdrop-filter:blur(12px);
+    box-shadow:0 10px 40px rgba(0,0,0,0.35);
+
+}
+
+/* LEFT */
+
+.left h1{
+
+    font-size:70px;
+    line-height:1.1;
+    margin-bottom:15px;
+
+}
+
+.left h1 span{
+    color:#00e5ff;
+}
+
+.subtitle{
+
+    font-size:30px;
+    color:#d8d8d8;
+    margin-bottom:35px;
+
+}
+
+.box{
+
+    background:rgba(255,255,255,0.08);
+    border-radius:25px;
+    padding:28px;
+    margin-bottom:25px;
+    border:1px solid rgba(255,255,255,0.08);
+
+}
+
+.box h2{
+
+    color:#00e5ff;
+    margin-bottom:18px;
+    font-size:30px;
+
+}
+
+.box p{
+
+    font-size:22px;
+    line-height:1.8;
+    color:#f5f5f5;
+
+}
+
+.list{
+    display:grid;
+    gap:14px;
+}
+
+.item{
+
+    font-size:23px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+}
+
+/* RIGHT */
+
+.right{
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+}
+
+.qr-container{
+
+    background:white;
+    padding:25px;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+
+}
+
+.scan{
+
+    margin-top:25px;
+    font-size:32px;
+    font-weight:bold;
+    text-align:center;
+
+}
+
+.url{
+
+    margin-top:20px;
+    text-align:center;
+    color:#d0d0d0;
+    font-size:16px;
+    word-break:break-word;
+
+}
+
+.badge{
+
+    margin-top:30px;
+    background:linear-gradient(135deg,#00c853,#00b0ff);
+    padding:20px 35px;
+    border-radius:50px;
+    font-size:26px;
+    font-weight:bold;
+    text-align:center;
+
+}
+
+.footer{
+
+    position:fixed;
+    bottom:10px;
+    left:0;
+    width:100%;
+    text-align:center;
+    font-size:15px;
+    color:#ccc;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+.slide{
+
+    grid-template-columns:1fr;
+    padding:30px;
+
+}
+
+.left h1{
+
+    font-size:48px;
+
+}
+
+.subtitle{
+
+    font-size:24px;
+
+}
+
+.box p,
+.item{
+
+    font-size:19px;
+
+}
+
+.scan{
+
+    font-size:25px;
+
+}
+
+.badge{
+
+    font-size:22px;
+
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="slide">
+
+<!-- LEFT -->
+
+<div class="left">
+
+<h1>
+🕵️ Detective del <span>Contenido</span>
+</h1>
+
+<div class="subtitle">
+Semana 2 — Análisis de Contenido
 </div>
 
-<h2 style="
-margin-top:10px;
-font-size:34px;
-color:white;
-">
-Misión Completada
-</h2>
+<div class="box">
 
-<p style="
-margin-top:10px;
-color:#d8d8d8;
-font-size:18px;
-">
-Has terminado el reto de análisis.
+<h2>🎯 Objetivo de la actividad</h2>
+
+<p>
+Desarrollar habilidades de análisis crítico mediante la interpretación de mensajes,
+imágenes y discursos digitales, identificando elementos de persuasión,
+propaganda e información presentes en medios actuales.
 </p>
 
-<div class="rank" id="rank"></div>
-
-<div style="
-margin-top:25px;
-font-size:22px;
-font-weight:bold;
-color:white;
-">
-⭐ Puntaje Final:
-<span id="finalScore"></span>
 </div>
 
-<!-- BOTONES SHARE -->
+<div class="box">
 
-<div style="
-margin-top:30px;
-display:flex;
-flex-direction:column;
-gap:12px;
-">
+<h2>🧠 ¿Qué desarrollarás?</h2>
 
-<a id="waShare"
-target="_blank"
-style="
-background:#25D366;
-padding:14px;
-border-radius:14px;
-text-decoration:none;
-color:white;
-font-weight:bold;
-font-size:17px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-">
-<i class="fa-brands fa-whatsapp"></i>
-Compartir en WhatsApp
-</a>
+<div class="list">
 
-<a id="fbShare"
-target="_blank"
-style="
-background:#1877F2;
-padding:14px;
-border-radius:14px;
-text-decoration:none;
-color:white;
-font-weight:bold;
-font-size:17px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-">
-<i class="fa-brands fa-facebook"></i>
-Compartir en Facebook
-</a>
+<div class="item">
+✅ Pensamiento crítico
+</div>
 
-<a id="twShare"
-target="_blank"
-style="
-background:#000;
-padding:14px;
-border-radius:14px;
-text-decoration:none;
-color:white;
-font-weight:bold;
-font-size:17px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-">
-𝕏 Compartir en X
-</a>
+<div class="item">
+✅ Interpretación de mensajes digitales
+</div>
+
+<div class="item">
+✅ Detección de manipulación y propaganda
+</div>
+
+<div class="item">
+✅ Análisis de imágenes y discursos
+</div>
+
+<div class="item">
+✅ Toma rápida de decisiones
+</div>
+
+<div class="item">
+✅ Capacidad de argumentación
+</div>
 
 </div>
 
-<button class="restart" onclick="location.reload()">
-🔄 Jugar otra vez
-</button>
+</div>
+
+<div class="box">
+
+<h2>🎮 ¿Cómo funciona?</h2>
+
+<p>
+1️⃣ Escanea el código QR 📱<br><br>
+
+2️⃣ Ingresa al reto interactivo 🕹️<br><br>
+
+3️⃣ Responde antes de que termine el tiempo ⏰<br><br>
+
+4️⃣ Obtén puntos y avanza de nivel ⭐<br><br>
+
+5️⃣ Comparte tu resultado final 🚀
+</p>
 
 </div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="right">
+
+<div class="qr-container">
+
+<div id="qrcode"></div>
+
+</div>
+
+<div class="scan">
+📲 Escanea y participa
+</div>
+
+<div class="badge">
+🏆 ¿Podrás convertirte en Maestro del Contenido?
+</div>
+
+<div class="url">
+https://maravilla9.github.io/semana_2_analisis/
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+Universidad Utel — Dr. Armando Sandoval Maravilla
+</div>
+
+<script>
+
+new QRCode(document.getElementById("qrcode"), {
+
+text: "https://maravilla9.github.io/semana_2_analisis/",
+width: 320,
+height: 320
+
+});
+
+</script>
+
+</body>
+</html>
