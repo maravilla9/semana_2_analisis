@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🕵️ Detective del Contenido</title>
+<title>🕵️ Detective del Contenido - Semana 2</title>
 <style>
     :root {
         --neon: #00f0ff;
@@ -16,21 +16,38 @@
         color: white;
         min-height: 100vh;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
         padding: 15px;
     }
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .logo {
+        max-width: 180px;
+        margin-bottom: 10px;
+    }
+    h1 {
+        font-size: 32px;
+        color: var(--neon);
+    }
+    .subtitle {
+        font-size: 22px;
+        color: #d0d0d0;
+    }
+
     .game-container {
         width: 100%;
         max-width: 850px;
         background: rgba(15, 20, 45, 0.95);
         border: 2px solid var(--neon);
         border-radius: 25px;
-        padding: 35px;
+        padding: 30px;
         box-shadow: 0 0 50px rgba(0, 240, 255, 0.25);
     }
     .progress-container {
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
     .step {
         text-align: center;
@@ -53,7 +70,7 @@
     .question {
         font-size: 26px;
         text-align: center;
-        margin: 35px 0;
+        margin: 30px 0;
         line-height: 1.4;
     }
     .options {
@@ -93,6 +110,7 @@
     .score {
         font-size: 48px;
         margin: 20px 0;
+        color: var(--neon);
     }
     .copy-btn {
         background: #00cc88;
@@ -104,9 +122,22 @@
         cursor: pointer;
         margin-top: 25px;
     }
+
+    footer {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 15px;
+        color: #aaa;
+    }
 </style>
 </head>
 <body>
+
+<header>
+    <img src="https://via.placeholder.com/180x80/ffffff/000000?text=LOGO+UTEL" alt="Logo Utel" class="logo">
+    <h1>🕵️ Detective del Contenido</h1>
+    <div class="subtitle">Semana 2 — Análisis de Contenido</div>
+</header>
 
 <div class="game-container">
     <div class="progress-container">
@@ -123,45 +154,49 @@
     </div>
 
     <div id="result-screen" class="result-screen">
-        <h1>¡Misión Completada!</h1>
+        <h1>¡Misión Completada Detective!</h1>
         <div class="score" id="final-score"></div>
         <p id="final-message"></p>
         <button class="copy-btn" onclick="copyResult()">📋 Copiar resultado para compartir</button>
     </div>
 </div>
 
+<footer>
+    Universidad Utel — Dr. Armando Sandoval Maravilla
+</footer>
+
 <script>
-// ====== REEMPLAZA ESTAS 5 PREGUNTAS CON LAS TUYAS ======
+// ====== REEMPLAZA CON TUS 5 PREGUNTAS REALES ======
 const questions = [
     {
         q: "¿Qué es la propaganda?",
-        options: ["Información neutral y objetiva", "Mensaje diseñado para influir en las opiniones", "Solo anuncios comerciales", "Noticias verificadas por periodistas"],
+        options: ["Información neutral y objetiva", "Mensaje diseñado para influir en opiniones o conductas", "Solo anuncios de productos", "Noticias verificadas"],
         correct: 1,
-        explanation: "La propaganda busca influir o manipular opiniones y conductas, no es información neutral."
+        explanation: "La propaganda es un mensaje intencional creado para persuadir, influir o manipular las opiniones y conductas del público."
     },
     {
-        q: "Pregunta 2 aquí",
+        q: "Pregunta 2",
         options: ["Opción A", "Opción B", "Opción C", "Opción D"],
         correct: 0,
-        explanation: "Explicación pedagógica cuando se equivoquen."
+        explanation: "Explicación pedagógica aquí."
     },
     {
-        q: "Pregunta 3 aquí",
+        q: "Pregunta 3",
         options: ["Opción A", "Opción B", "Opción C", "Opción D"],
         correct: 2,
-        explanation: "Explicación pedagógica cuando se equivoquen."
+        explanation: "Explicación pedagógica aquí."
     },
     {
-        q: "Pregunta 4 aquí",
+        q: "Pregunta 4",
         options: ["Opción A", "Opción B", "Opción C", "Opción D"],
         correct: 1,
-        explanation: "Explicación pedagógica cuando se equivoquen."
+        explanation: "Explicación pedagógica aquí."
     },
     {
-        q: "Pregunta 5 aquí",
+        q: "Pregunta 5",
         options: ["Opción A", "Opción B", "Opción C", "Opción D"],
         correct: 3,
-        explanation: "Explicación pedagógica cuando se equivoquen."
+        explanation: "Explicación pedagógica aquí."
     }
 ];
 
@@ -192,7 +227,6 @@ function checkAnswer(selected) {
     const q = questions[current];
     const feedback = document.getElementById("feedback");
     const buttons = document.querySelectorAll(".option-btn");
-
     buttons.forEach(b => b.disabled = true);
 
     if (selected === q.correct) {
@@ -212,7 +246,7 @@ function checkAnswer(selected) {
         } else {
             showResult();
         }
-    }, 2600);
+    }, 2800);
 }
 
 function showResult() {
@@ -222,21 +256,21 @@ function showResult() {
     const percent = Math.round((score / 5) * 100);
     document.getElementById("final-score").textContent = `${score}/5 (${percent}%)`;
 
-    let msg = score === 5 ? "¡Excelente! Eres un verdadero Detective del Contenido." :
-              score >= 3 ? "Buen trabajo. Puedes mejorar aún más." :
+    let msg = score === 5 ? "¡Eres un Maestro Detective!" : 
+              score >= 3 ? "¡Buen trabajo! Sigue practicando." : 
               "Revisa los conceptos y vuelve a intentarlo.";
     document.getElementById("final-message").textContent = msg;
 }
 
 function copyResult() {
     const percent = Math.round((score / 5) * 100);
-    const text = `Obtuve ${score}/5 (${percent}%) en el juego Detective del Contenido. ¡Inténtalo tú también!`;
+    const text = `Obtuve ${score}/5 (${percent}%) en Detective del Contenido - Semana 2 (Utel). ¡Inténtalo tú también!`;
     navigator.clipboard.writeText(text).then(() => {
-        alert("✅ Resultado copiado. Pégalo en WhatsApp o Facebook.");
+        alert("✅ Resultado copiado al portapapeles. Pégalo donde quieras compartir.");
     });
 }
 
-// Iniciar
+// Iniciar juego
 loadQuestion();
 </script>
 </body>
