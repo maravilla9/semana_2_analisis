@@ -5,22 +5,93 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🕵️ Detective del Contenido - Semana 2</title>
 <style>
-    body { font-family:'Segoe UI',sans-serif; background:linear-gradient(135deg,#1a0f35,#0f1b4a); color:white; display:flex; flex-direction:column; align-items:center; padding:15px; }
-    .logo { max-width:120px; margin-bottom:8px; }
-    h1 { font-size:22px; color:#00f0ff; }
-    .subtitle { font-size:16px; color:#a0d8ff; }
-    .legend { font-size:13px; color:#ccc; margin-top:6px; }
-    .game-container { max-width:500px; background:rgba(20,25,60,0.92); border:2px solid #00f0ff; border-radius:12px; padding:15px; box-shadow:0 0 20px rgba(0,240,255,0.4); }
-    .question { font-size:18px; text-align:center; margin:15px 0; }
-    .options { display:grid; gap:10px; }
-    .option-btn { padding:10px; font-size:14px; background:rgba(35,45,90,0.9); border:2px solid #5566aa; border-radius:10px; color:white; cursor:pointer; }
-    .option-btn:hover { background:rgba(0,240,255,0.2); border-color:#00f0ff; }
-    .feedback { margin-top:12px; padding:10px; border-radius:10px; font-size:14px; display:none; }
-    .correct { background:rgba(0,220,100,0.3); border:2px solid #00ff88; }
-    .wrong { background:rgba(240,60,60,0.3); border:2px solid #ff6666; }
-    .result-screen { text-align:center; display:none; }
-    .score { font-size:20px; margin:10px 0; color:#00f0ff; }
-    .copy-btn { background:linear-gradient(90deg,#00ffaa,#00cc77); color:#000; font-weight:bold; border:none; padding:8px 16px; font-size:14px; border-radius:20px; cursor:pointer; margin:5px; }
+    body { 
+        font-family: 'Segoe UI', sans-serif; 
+        background: linear-gradient(135deg, #1a0f35, #0f1b4a); 
+        color: white; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px; 
+    }
+    header { text-align: center; margin-bottom: 20px; }
+    .logo { max-width: 120px; margin-bottom: 10px; }
+    h1 { font-size: 24px; color: #00f0ff; margin: 5px 0; }
+    .subtitle { font-size: 16px; color: #a0d8ff; }
+    .legend { font-size: 13px; color: #ccc; max-width: 450px; margin: 10px auto; line-height: 1.4; }
+
+    /* Contenedor con altura fija para evitar que el marco "salte" */
+    .game-container { 
+        width: 100%;
+        max-width: 500px; 
+        min-height: 350px; 
+        background: rgba(20, 25, 60, 0.95); 
+        border: 2px solid #00f0ff; 
+        border-radius: 15px; 
+        padding: 25px; 
+        box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .question { font-size: 18px; text-align: center; margin-bottom: 20px; font-weight: 500; }
+    .options { display: grid; gap: 12px; }
+    .option-btn { 
+        padding: 12px; 
+        font-size: 15px; 
+        background: rgba(45, 55, 110, 0.8); 
+        border: 1px solid #5566aa; 
+        border-radius: 10px; 
+        color: white; 
+        cursor: pointer; 
+        transition: 0.2s;
+    }
+    .option-btn:hover:not(:disabled) { background: rgba(0, 240, 255, 0.2); border-color: #00f0ff; }
+    .option-btn:disabled { opacity: 0.6; cursor: default; }
+
+    .feedback { 
+        margin-top: 15px; 
+        padding: 12px; 
+        border-radius: 8px; 
+        font-size: 14px; 
+        text-align: center;
+        min-height: 40px;
+    }
+    .correct { background: rgba(0, 220, 100, 0.2); border: 1px solid #00ff88; color: #00ff88; }
+    .wrong { background: rgba(240, 60, 60, 0.2); border: 1px solid #ff6666; color: #ff6666; }
+
+    .result-screen { text-align: center; display: none; }
+    .score { font-size: 28px; margin: 15px 0; color: #00f0ff; font-weight: bold; }
+    
+    .btn-group { margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .action-btn { 
+        background: #00f0ff; 
+        color: #0f1b4a; 
+        font-weight: bold; 
+        border: none; 
+        padding: 10px 20px; 
+        font-size: 14px; 
+        border-radius: 25px; 
+        cursor: pointer; 
+        transition: 0.3s;
+    }
+    .action-btn:hover { background: #00ccdd; transform: translateY(-2px); }
+    .restart-btn { background: #ffaa00; color: #1a0f35; }
+
+    footer { 
+        margin-top: 30px; 
+        font-size: 12px; 
+        color: #8899cc; 
+        text-align: center;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 15px;
+        width: 100%;
+        max-width: 500px;
+    }
 </style>
 </head>
 <body>
@@ -29,23 +100,29 @@
     <img src="https://i.postimg.cc/FKz4sz2C/logoutelsinfondo.png" alt="Logo Utel" class="logo">
     <h1>🕵️ Detective del Contenido</h1>
     <div class="subtitle">Semana 2 — Análisis de Contenido</div>
-    <p class="legend">Este juego busca que reflexiones sobre cómo se construyen los mensajes y desarrolles pensamiento crítico.</p>
+    <p class="legend">Reflexiona sobre la construcción de mensajes y desarrolla tu pensamiento crítico.</p>
 </header>
 
 <div class="game-container">
+    <!-- Pantalla de Juego -->
     <div id="game-screen">
-        <div class="question" id="question-text"></div>
+        <div class="question" id="question-text">Cargando pregunta...</div>
         <div class="options" id="options"></div>
-        <div class="feedback" id="feedback"></div>
+        <div id="feedback-container" style="min-height: 60px; margin-top: 10px;">
+            <div class="feedback" id="feedback" style="display:none;"></div>
+        </div>
     </div>
 
+    <!-- Pantalla de Resultados -->
     <div id="result-screen" class="result-screen">
         <h1>¡Misión Completada! 🎉</h1>
         <div class="score" id="final-score"></div>
         <p id="final-message"></p>
-        <button class="copy-btn" onclick="shareWhatsApp()">📲 WhatsApp</button>
-        <button class="copy-btn" onclick="shareFacebook()">📘 Facebook</button>
-        <button class="copy-btn" onclick="restartGame()">🔄 Reiniciar</button>
+        <div class="btn-group">
+            <button class="action-btn" onclick="shareWhatsApp()">📲 WhatsApp</button>
+            <button class="action-btn" onclick="shareFacebook()">📘 Facebook</button>
+            <button class="action-btn restart-btn" onclick="restartGame()">🔄 Reiniciar Juego</button>
+        </div>
     </div>
 </div>
 
@@ -53,58 +130,84 @@
 
 <script>
 const questions = [
-    { q:"¿Qué es la propaganda?", options:["A) Información neutral","B) Mensaje diseñado para influir"], correct:1, explanation:"La propaganda busca persuadir o manipular opiniones." },
-    { q:"¿Qué significa analizar contenido?", options:["A) Revisar críticamente un mensaje","B) Memorizar sin cuestionar"], correct:0, explanation:"Analizar es reflexionar y cuestionar el mensaje." },
-    { q:"¿Cuál es la finalidad del juego?", options:["A) Desarrollar pensamiento crítico","B) Pasar el tiempo"], correct:0, explanation:"El objetivo es aprender a distinguir mensajes y reflexionar." }
+    { q:"¿Qué es la propaganda?", options:["A) Información neutral","B) Mensaje diseñado para influir"], correct:1, explanation:"La propaganda busca persuadir o manipular opiniones para un fin específico." },
+    { q:"¿Qué significa analizar contenido?", options:["A) Revisar críticamente un mensaje","B) Memorizar sin cuestionar"], correct:0, explanation:"Analizar implica desmenuzar el mensaje y cuestionar su intención." },
+    { q:"¿Cuál es la finalidad del juego?", options:["A) Desarrollar pensamiento crítico","B) Pasar el tiempo"], correct:0, explanation:"El objetivo principal es aprender a evaluar mensajes de forma analítica." }
 ];
 
-let current=0, score=0;
+let current = 0, score = 0;
 
 function loadQuestion(){
-    const q=questions[current];
-    document.getElementById("question-text").textContent=q.q;
-    const optionsDiv=document.getElementById("options"); optionsDiv.innerHTML="";
-    q.options.forEach((opt,i)=>{
-        const btn=document.createElement("button");
-        btn.className="option-btn"; btn.textContent=opt;
-        btn.onclick=()=>checkAnswer(i); optionsDiv.appendChild(btn);
+    const q = questions[current];
+    document.getElementById("question-text").textContent = q.q;
+    const optionsDiv = document.getElementById("options"); 
+    optionsDiv.innerHTML = "";
+    
+    q.options.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn"; 
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(i); 
+        optionsDiv.appendChild(btn);
     });
-    document.getElementById("feedback").style.display="none";
+    document.getElementById("feedback").style.display = "none";
 }
 
 function checkAnswer(selected){
-    const q=questions[current]; const feedback=document.getElementById("feedback");
-    document.querySelectorAll(".option-btn").forEach(b=>b.disabled=true);
-    if(selected===q.correct){ score++; feedback.className="feedback correct"; feedback.innerHTML="✅ ¡Correcto!"; }
-    else{ feedback.className="feedback wrong"; feedback.innerHTML=`❌ Incorrecto.<br><strong>Por qué:</strong> ${q.explanation}`; }
-    feedback.style.display="block";
-    setTimeout(()=>{ current++; current<questions.length?loadQuestion():showResult(); },1500);
+    const q = questions[current]; 
+    const feedback = document.getElementById("feedback");
+    const buttons = document.querySelectorAll(".option-btn");
+    
+    buttons.forEach(b => b.disabled = true);
+    
+    if(selected === q.correct){ 
+        score++; 
+        feedback.className = "feedback correct"; 
+        feedback.innerHTML = "✅ <strong>¡Correcto!</strong>"; 
+    } else { 
+        feedback.className = "feedback wrong"; 
+        feedback.innerHTML = `❌ <strong>Incorrecto</strong><br>${q.explanation}`; 
+    }
+    
+    feedback.style.display = "block";
+    
+    setTimeout(() => { 
+        current++; 
+        if(current < questions.length) {
+            loadQuestion();
+        } else {
+            showResult();
+        }
+    }, 2000);
 }
 
 function showResult(){
-    document.getElementById("game-screen").style.display="none";
-    document.getElementById("result-screen").style.display="block";
-    const percent=Math.round((score/questions.length)*100);
-    document.getElementById("final-score").textContent=`${score}/${questions.length} (${percent}%)`;
-    document.getElementById("final-message").textContent= percent>=70 ? "¡Buen trabajo!" : "Repasa los conceptos y vuelve a intentarlo.";
+    document.getElementById("game-screen").style.display = "none";
+    document.getElementById("result-screen").style.display = "block";
+    const percent = Math.round((score / questions.length) * 100);
+    document.getElementById("final-score").textContent = `${score}/${questions.length} (${percent}%)`;
+    document.getElementById("final-message").textContent = percent >= 70 ? "¡Excelente análisis, detective!" : "Sigue practicando para mejorar tu ojo crítico.";
 }
 
 function restartGame(){
-    current=0; score=0;
-    document.getElementById("result-screen").style.display="none";
-    document.getElementById("game-screen").style.display="block";
+    current = 0; 
+    score = 0;
+    document.getElementById("result-screen").style.display = "none";
+    document.getElementById("game-screen").style.display = "block";
     loadQuestion();
 }
 
 function shareWhatsApp(){
-    const text=`Obtuve ${score}/${questions.length} en Detective del Contenido 🕵️`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`,'_blank');
-}
-function shareFacebook(){
-    const text=`Obtuve ${score}/${questions.length} en Detective del Contenido 🕵️`;
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(text)}`,'_blank');
+    const text = `Logré un puntaje de ${score}/${questions.length} en el juego Detective del Contenido 🕵️‍♂️`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
 }
 
+function shareFacebook(){
+    const u = window.location.href;
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}`, '_blank');
+}
+
+// Iniciar
 loadQuestion();
 </script>
 </body>
