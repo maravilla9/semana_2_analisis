@@ -45,6 +45,7 @@
         <p id="final-message"></p>
         <button class="copy-btn" onclick="shareWhatsApp()">📲 WhatsApp</button>
         <button class="copy-btn" onclick="shareFacebook()">📘 Facebook</button>
+        <button class="copy-btn" onclick="restartGame()">🔄 Reiniciar</button>
     </div>
 </div>
 
@@ -86,6 +87,13 @@ function showResult(){
     const percent=Math.round((score/questions.length)*100);
     document.getElementById("final-score").textContent=`${score}/${questions.length} (${percent}%)`;
     document.getElementById("final-message").textContent= percent>=70 ? "¡Buen trabajo!" : "Repasa los conceptos y vuelve a intentarlo.";
+}
+
+function restartGame(){
+    current=0; score=0;
+    document.getElementById("result-screen").style.display="none";
+    document.getElementById("game-screen").style.display="block";
+    loadQuestion();
 }
 
 function shareWhatsApp(){
