@@ -3,183 +3,123 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Invitación - Detective del Contenido</title>
+<title>Detective del Contenido - Semana 2</title>
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: white;
 }
-body{
-    font-family:'Segoe UI',sans-serif;
-    background:linear-gradient(135deg,#141e30,#243b55);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-    color:white;
+.contenedor {
+    width: 100%;
+    max-width: 1100px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 30px;
+    padding: 50px 40px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    text-align: center;
 }
-.slide{
-    width:100%;
-    max-width:1400px;
-    background:rgba(255,255,255,0.05);
-    border-radius:30px;
-    padding:50px;
-    display:grid;
-    grid-template-columns:1.3fr 0.7fr;
-    gap:50px;
-    backdrop-filter:blur(12px);
-    box-shadow:0 10px 40px rgba(0,0,0,0.35);
+h1 {
+    font-size: 62px;
+    line-height: 1.1;
+    margin-bottom: 10px;
 }
-.left h1{
-    font-size:70px;
-    line-height:1.1;
-    margin-bottom:15px;
+h1 span { color: #00e5ff; }
+.subtitle {
+    font-size: 28px;
+    color: #d0d0d0;
+    margin-bottom: 40px;
 }
-.left h1 span{
-    color:#00e5ff;
+.box {
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    text-align: left;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
-.subtitle{
-    font-size:30px;
-    color:#d8d8d8;
-    margin-bottom:35px;
+.box h2 {
+    color: #00e5ff;
+    margin-bottom: 15px;
+    font-size: 26px;
 }
-.box{
-    background:rgba(255,255,255,0.08);
-    border-radius:25px;
-    padding:28px;
-    margin-bottom:25px;
-    border:1px solid rgba(255,255,255,0.1);
+.box p, .item {
+    font-size: 21px;
+    line-height: 1.7;
 }
-.box h2{
-    color:#00e5ff;
-    margin-bottom:18px;
-    font-size:30px;
+.list { display: grid; gap: 12px; }
+.item { display: flex; align-items: center; gap: 12px; }
+
+.btn-juego {
+    display: inline-block;
+    margin-top: 40px;
+    background: linear-gradient(135deg, #00c853, #00b0ff);
+    color: white;
+    padding: 20px 50px;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(0, 200, 83, 0.4);
+    transition: all 0.3s;
 }
-.box p, .list{
-    font-size:22px;
-    line-height:1.8;
-    color:#f5f5f5;
-}
-.item{
-    font-size:23px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:12px;
-}
-.right{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
-.qr-container{
-    background:white;
-    padding:20px;
-    border-radius:25px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-}
-.qr-container img{
-    max-width:100%;
-    height:auto;
-    display:block;
-}
-.scan{
-    margin-top:25px;
-    font-size:32px;
-    font-weight:bold;
-    text-align:center;
-}
-.badge{
-    margin-top:30px;
-    background:linear-gradient(135deg,#00c853,#00b0ff);
-    padding:20px 35px;
-    border-radius:50px;
-    font-size:26px;
-    font-weight:bold;
-    text-align:center;
-}
-.url{
-    margin-top:20px;
-    text-align:center;
-    color:#d0d0d0;
-    font-size:16px;
-}
-.footer{
-    position:fixed;
-    bottom:10px;
-    left:0;
-    width:100%;
-    text-align:center;
-    font-size:15px;
-    color:#ccc;
+.btn-juego:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 200, 83, 0.5);
 }
 
-/* Responsive */
-@media(max-width:1000px){
-    .slide{
-        grid-template-columns:1fr;
-        padding:30px;
-    }
-    .left h1{ font-size:48px; }
-    .subtitle{ font-size:24px; }
-    .box p, .item{ font-size:19px; }
-    .scan{ font-size:26px; }
+.footer {
+    position: fixed;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
 }
 </style>
 </head>
 <body>
 
-<div class="slide">
-    <!-- LADO IZQUIERDO -->
-    <div class="left">
-        <h1>🕵️ Detective del <span>Contenido</span></h1>
-        <div class="subtitle">Semana 2 — Análisis de Contenido</div>
-        
-        <div class="box">
-            <h2>🎯 Objetivo de la actividad</h2>
-            <p>Desarrollar habilidades de análisis crítico mediante la interpretación de mensajes, imágenes y discursos digitales, identificando elementos de persuasión, propaganda e información presentes en medios actuales.</p>
-        </div>
+<div class="contenedor">
+    <h1>🕵️ Detective del <span>Contenido</span></h1>
+    <div class="subtitle">Semana 2 — Análisis de Contenido</div>
 
-        <div class="box">
-            <h2>🧠 ¿Qué desarrollarás?</h2>
-            <div class="list">
-                <div class="item">✅ Pensamiento crítico</div>
-                <div class="item">✅ Interpretación de mensajes digitales</div>
-                <div class="item">✅ Detección de manipulación y propaganda</div>
-                <div class="item">✅ Análisis de imágenes y discursos</div>
-                <div class="item">✅ Toma rápida de decisiones</div>
-                <div class="item">✅ Capacidad de argumentación</div>
-            </div>
-        </div>
+    <div class="box">
+        <h2>🎯 Objetivo</h2>
+        <p>Desarrollar habilidades de análisis crítico mediante la interpretación de mensajes, imágenes y discursos digitales, identificando persuasión, propaganda e información.</p>
+    </div>
 
-        <div class="box">
-            <h2>🎮 ¿Cómo funciona?</h2>
-            <p>
-                1️⃣ Escanea el código QR 📱<br><br>
-                2️⃣ Ingresa al reto interactivo 🕹️<br><br>
-                3️⃣ Responde antes de que termine el tiempo ⏰<br><br>
-                4️⃣ Obtén puntos y avanza de nivel ⭐<br><br>
-                5️⃣ Comparte tu resultado final 🚀
-            </p>
+    <div class="box">
+        <h2>🧠 ¿Qué vas a desarrollar?</h2>
+        <div class="list">
+            <div class="item">✅ Pensamiento crítico</div>
+            <div class="item">✅ Interpretación de mensajes digitales</div>
+            <div class="item">✅ Detección de manipulación</div>
+            <div class="item">✅ Análisis de imágenes y discursos</div>
+            <div class="item">✅ Toma de decisiones bajo presión</div>
+            <div class="item">✅ Capacidad de argumentación</div>
         </div>
     </div>
 
-    <!-- LADO DERECHO -->
-    <div class="right">
-        <div class="qr-container">
-            <img src="qr-detective.png" alt="Código QR - Detective del Contenido">
-        </div>
-        <div class="scan">📲 Escanea y participa</div>
-        <div class="badge">🏆 ¿Podrás convertirte en Maestro del Contenido?</div>
-        <div class="url">
-            <a href="https://maravilla9.github.io/semana_2_analisis/" target="_blank" style="color:#00e5ff;">
-                https://maravilla9.github.io/semana_2_analisis/
-            </a>
-        </div>
+    <div class="box">
+        <h2>🎮 ¿Cómo participar?</h2>
+        <p>1. Presiona el botón de abajo<br>
+           2. Responde las preguntas antes de que se acabe el tiempo<br>
+           3. Acumula puntos y sube de nivel</p>
     </div>
+
+    <a href="https://maravilla9.github.io/semana_2_analisis/" class="btn-juego" target="_blank">
+        🚀 INICIAR EL JUEGO
+    </a>
 </div>
 
 <div class="footer">
